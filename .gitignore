@@ -1,0 +1,13 @@
+*.gtf
+*.bai
+*.bam
+*.fasta
+*.fastq
+*.gz
+*.html
+*.ids
+*.json
+*.log
+*_bowtie2
+*~
+10_logfiles/*
