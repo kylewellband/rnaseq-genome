@@ -15,7 +15,6 @@ cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 GENOME="02_reference/genome.fasta"  # Genomic reference .fasta
 GFF="02_reference/genes.gff"
 NCPUS=4
-BIT_SIZE=$(00_scripts/util/calcSTARGenomeBitSize.py ${GENOME})
 
 # Modules
 module load samtools
@@ -27,11 +26,13 @@ echo "Building ${GENOME} index..."
 
 samtools faidx ${GENOME}
 
-gatk --java-options '-Xmx4G'
+gatk --java-options '-Xmx4G' \
     CreateSequenceDictionary \
         -R ${GENOME} \
         -O ${GENOME%.*}.dict
-        
+
+BIT_SIZE=$(python3 00_scripts/util/calcSTARGenomeBitSize.py ${GENOME})
+
 STAR --runMode genomeGenerate \
     --runThreadN ${NCPUS} \
     --genomeDir "02_reference/" \
