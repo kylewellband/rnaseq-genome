@@ -31,7 +31,7 @@ gatk --java-options '-Xmx4G' \
         -R ${GENOME} \
         -O ${GENOME%.*}.dict
 
-BIT_SIZE=$(python3 00_scripts/util/calcSTARGenomeBitSize.py ${GENOME})
+BIT_SIZE=$(python3 01_scripts/util/calcSTARGenomeBitSize.py ${GENOME})
 
 STAR --runMode genomeGenerate \
     --runThreadN ${NCPUS} \
