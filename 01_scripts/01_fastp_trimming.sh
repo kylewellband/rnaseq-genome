@@ -25,17 +25,14 @@ do
     # Fastp
     fastp -w $NCPUS \
         -i "$file"_R1.fastq.gz \
-        # for single end data: comment next line
         -I "$file"_R2.fastq.gz \
         -o $OUTPUT/"$name"_R1.fastq.gz \
-        # for single end data: comment next line
         -O $OUTPUT/"$name"_R2.fastq.gz  \
         --length_required="$LENGTH" \
         --qualified_quality_phred="$QUAL" \
         --correction \
-        --polyX \
+        --trim_poly_x \
         --trim_tail1=1 \
-        # for single end data: comment next line
         --trim_tail2=1 \
         --json $OUTPUT/"$name".json \
         --html $OUTPUT/"$name".html  \

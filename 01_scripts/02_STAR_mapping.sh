@@ -29,7 +29,7 @@ do
     echo "Aligning $file"
 
     STAR --runThreadN ${NCPUS} \
-        --genomeDir ./genome \
+        --genomeDir 02_reference/ \
         --readFilesIn ${INPUT}/${name}_R1.fastq.gz ${INPUT}/${name}_R2.fastq.gz \
         --readFilesCommand gunzip -c \
         --twopassMode Basic \
@@ -37,11 +37,11 @@ do
         --outFileNamePrefix ${OUTPUT}/${name} \
         --outSAMtype BAM SortedByCoordinate \
         --outFilterMultimapNmax 20 \
-        --waspOutputMode SAMtag \
         --quantMode TranscriptomeSAM GeneCounts \
-        --outSAMattributes NH HI AS nM vW \
+        --outSAMattributes NH HI AS nM \
         --outSAMattrRGline ID:${name} SN:${name} PL:ILLUMINA
     
-    samtools index "$OUTPUT"/"$name".bam
+    samtools index "$OUTPUT"/"$name"Aligned.sortedByCoord.out.bam
+    samtools index "$OUTPUT"/"$name"Aligned.toTranscriptome.out.bam
 
-done &> | tee $LOG_FOLDER/"$TIMESTAMP"_mapping.log
+done | tee $LOG_FOLDER/"$TIMESTAMP"_mapping.log
