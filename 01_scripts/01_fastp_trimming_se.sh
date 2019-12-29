@@ -28,7 +28,7 @@ do
         -o $OUTPUT/"$name".fastq.gz \
         --length_required="$LENGTH" \
         --qualified_quality_phred="$QUAL" \
-        --trim_poly_X \
+        --trim_poly_x \
 	--correction \
         --trim_tail1=1 \
         --json $OUTPUT/"$name".json \

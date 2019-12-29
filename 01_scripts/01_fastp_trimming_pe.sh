@@ -30,7 +30,7 @@ do
         -O $OUTPUT/"$name"_R2.fastq.gz  \
         --length_required="$LENGTH" \
         --qualified_quality_phred="$QUAL" \
-        --trim_poly_X \
+        --trim_poly_x \
 	--correction \
         --trim_tail1=1 \
         --trim_tail2=1 \
