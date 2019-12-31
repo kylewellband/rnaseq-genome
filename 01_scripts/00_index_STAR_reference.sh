@@ -35,11 +35,12 @@ BIT_SIZE=$(python3 01_scripts/util/calcSTARGenomeBitSize.py ${GENOME})
 
 STAR --runMode genomeGenerate \
     --runThreadN ${NCPUS} \
-    --genomeDir "02_reference/" \
+    --genomeDir "02_reference/STARindex/" \
     --genomeFastaFiles ${GENOME} \
     --sjdbGTFfile ${GFF} \
     --sjdbGTFtagExonParentTranscript Parent \
     --sjdbGTFfeatureExon exon \
-    --genomeChrBinNbits ${BIT_SIZE}
+    --genomeChrBinNbits ${BIT_SIZE} \
+    --genomeSAindexNbases 14
 
 
