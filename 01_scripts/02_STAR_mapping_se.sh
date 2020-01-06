@@ -49,8 +49,6 @@ do
 
 done | tee $LOG_FOLDER/"$TIMESTAMP"_firstpass_mapping.log
 
-exit
-
 # Align reads second pass inserting SJ on the fly
 for file in $(ls "$INPUT"/*.fastq.gz | perl -pe 's/\.fastq\.gz//g')
 do
