@@ -12,8 +12,8 @@ LOG_FOLDER="10_log_files"
 cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
 # Global variables
-INPUT="06_stringtie_gtf"
-OUTPUT="07_ballgown"
+INPUT="05_aligned_bam"
+OUTPUT="06_stringtie_gtf"
 NCPUS=4
 GFF="02_reference/stringtie_genes.gtf"
 
@@ -31,7 +31,6 @@ do
     
 done
 
-ls ${OUTPUT}/*.ctab > ${OUTPUT}/ballgown_files.txt
+ls ${OUTPUT}/*.ctab | awk -F "/" '{sub(/.ctab/, "", $2); print $2 "\t" $1 "/" $2 ".ctab"}' > ${OUTPUT}/stringtie_ctab_files.txt
 
-01_scripts/util/prepDE.py -i ${OUTPUT}/ballgown_files.txt -g ${OUTPUT}/gene_count_matrix.csv -t ${OUTPUT}/transcript_count_matrix.csv
 

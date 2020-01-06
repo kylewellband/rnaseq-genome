@@ -9,5 +9,12 @@
 *.json
 *.log
 *_bowtie2
+*.txt
+*.out
 *~
-10_logfiles/*
+02_reference/*
+03_raw_data/*
+04_trimmed_reads/*
+05_aligned_bam/*
+06_stringtie_gtf/*
+10_log_files/*

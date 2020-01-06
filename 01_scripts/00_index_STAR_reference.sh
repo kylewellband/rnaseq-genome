@@ -26,10 +26,12 @@ echo "Building ${GENOME} index..."
 
 samtools faidx ${GENOME}
 
-gatk --java-options '-Xmx4G' \
-    CreateSequenceDictionary \
-        -R ${GENOME} \
-        -O ${GENOME%.*}.dict
+if [ ! -e ${GENOME%.*}.dict ]
+then
+    picard -Xmx4G CreateSequenceDictionary \
+        R=${GENOME} \
+        O=${GENOME%.*}.dict
+fi
 
 BIT_SIZE=$(python3 01_scripts/util/calcSTARGenomeBitSize.py ${GENOME})
 

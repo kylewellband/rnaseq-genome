@@ -12,7 +12,6 @@ LOG_FOLDER="10_log_files"
 cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
 # Global variables
-GENOME="02_reference/genome.fasta"  # Genomic reference.fasta
 INPUT="04_trimmed_reads"
 OUTPUT="05_aligned_bam"
 NCPUS=4
@@ -22,7 +21,7 @@ module load samtools
 module load star
 
 # Align reads
-for file in $(ls "$INPUT"/*_R1.fastq.gz | perl -pe 's/_R[12]\.fastq\.gz//g')
+for file in $(ls "$INPUT"/*_R1.fastq.gz | perl -pe 's/_R1\.fastq\.gz//g')
 do
     name=$(basename $file)
     
@@ -35,13 +34,14 @@ do
         --twopassMode Basic \
         --outSAMmapqUnique 60 \
         --outFileNamePrefix ${OUTPUT}/${name} \
-        --outSAMtype BAM SortedByCoordinate \
+        --outSAMtype BAM Unsorted \
         --outFilterMultimapNmax 20 \
         --quantMode TranscriptomeSAM GeneCounts \
         --outSAMattributes NH HI AS nM \
         --outSAMattrRGline ID:${name} SN:${name} PL:ILLUMINA
     
-    samtools index "$OUTPUT"/"$name"Aligned.sortedByCoord.out.bam
-    samtools index "$OUTPUT"/"$name"Aligned.toTranscriptome.out.bam
+    samtools sort -@ $NCPUS "$OUTPUT"/"$name"Aligned.out.bam > "$OUTPUT"/"$name"Aligned.sorted.out.bam 
+    rm "$OUTPUT"/"$name"Aligned.out.bam
+    samtools index "$OUTPUT"/"$name"Aligned.sorted.out.bam
 
 done | tee $LOG_FOLDER/"$TIMESTAMP"_mapping.log

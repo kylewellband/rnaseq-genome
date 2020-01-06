@@ -21,6 +21,12 @@ NCPUS=4
 module load samtools
 module load star
 
+## Need to adjust settings in /etc/sysctl.conf to take advantage of shared memory
+## See STAR manual for details
+# STAR --runThreadN $NCPUS \
+#     --genomeDir 02_reference/STARindex/ \
+#     --genomeLoad LoadAndExit
+
 # Align reads
 for file in $(ls "$INPUT"/*.fastq.gz | perl -pe 's/\.fastq\.gz//g')
 do
@@ -41,8 +47,13 @@ do
         --outSAMattributes NH HI AS nM \
         --outSAMattrRGline ID:${name} SN:${name} PL:ILLUMINA
 
-    samtools sort "$OUTPUT"/"$name"Aligned.out.bam > "$OUTPUT"/"$name"Aligned.sorted.out.bam
+    samtools sort -@ $NCPUS "$OUTPUT"/"$name"Aligned.out.bam > "$OUTPUT"/"$name"Aligned.sorted.out.bam
     rm "$OUTPUT"/"$name"Aligned.out.bam
     samtools index "$OUTPUT"/"$name"Aligned.sorted.out.bam
 
 done | tee $LOG_FOLDER/"$TIMESTAMP"_mapping.log
+
+# STAR --runThreadN $NCPUS \
+#     --genomeDir 02_reference/STARindex/ \
+#     --genomeLoad Remove
+

@@ -29,7 +29,6 @@ do
         --length_required="$LENGTH" \
         --qualified_quality_phred="$QUAL" \
         --trim_poly_x \
-	--correction \
         --trim_tail1=1 \
         --json $OUTPUT/"$name".json \
         --html $OUTPUT/"$name".html  \
