@@ -32,7 +32,7 @@ for file in $(ls "$INPUT"/*.fastq.gz | perl -pe 's/\.fastq\.gz//g')
 do
     name=$(basename $file)
     
-    echo "First Pass: Aligning $file"
+    echo -e "\nFirst Pass: Aligning $file"
 
     STAR --runThreadN ${NCPUS} \
         --genomeDir 02_reference/STARindex/ \
@@ -56,7 +56,7 @@ for file in $(ls "$INPUT"/*.fastq.gz | perl -pe 's/\.fastq\.gz//g')
 do
     name=$(basename $file)
     
-    echo "First Pass: Aligning $file"
+    echo -e "\nSecond Pass: Aligning $file"
 
     STAR --runThreadN ${NCPUS} \
         --genomeDir 02_reference/STARindex/ \

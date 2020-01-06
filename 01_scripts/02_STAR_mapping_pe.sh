@@ -26,18 +26,42 @@ module load star
 #     --genomeDir 02_reference/STARindex/ \
 #     --genomeLoad LoadAndExit
 
-# Align reads
+# Align reads first pass
 for file in $(ls "$INPUT"/*_R1.fastq.gz | perl -pe 's/_R1\.fastq\.gz//g')
 do
     name=$(basename $file)
     
-    echo "Aligning $file"
+    echo -e "\nFirst Pass: Aligning $file"
 
     STAR --runThreadN ${NCPUS} \
         --genomeDir 02_reference/ \
         --readFilesIn ${INPUT}/${name}_R1.fastq.gz ${INPUT}/${name}_R2.fastq.gz \
         --readFilesCommand gunzip -c \
-        --twopassMode Basic \
+        --twopassMode None \
+        --outSAMmapqUnique 60 \
+        --outFileNamePrefix ${OUTPUT}/${name} \
+        --outSAMtype BAM Unsorted \
+        --outFilterMultimapNmax 20 \
+        --outSAMattrRGline ID:${name} SN:${name} PL:ILLUMINA
+    
+    rm "$OUTPUT"/"$name"Aligned.out.bam
+
+done | tee $LOG_FOLDER/"$TIMESTAMP"_firstpass_mapping.log
+
+
+# Align reads second pass inserting SJ on the fly
+for file in $(ls "$INPUT"/*_R1.fastq.gz | perl -pe 's/_R1\.fastq\.gz//g')
+do
+    name=$(basename $file)
+    
+    echo -e "\nSecond Pass: Aligning $file"
+
+    STAR --runThreadN ${NCPUS} \
+        --genomeDir 02_reference/ \
+        --readFilesIn ${INPUT}/${name}_R1.fastq.gz ${INPUT}/${name}_R2.fastq.gz \
+        --readFilesCommand gunzip -c \
+        --twopassMode None \
+        --sjdbFileChrStartEnd ${OUTPUT}/*SJ.out.tab \
         --outSAMmapqUnique 60 \
         --outFileNamePrefix ${OUTPUT}/${name} \
         --outSAMtype BAM Unsorted \
@@ -50,7 +74,8 @@ do
     rm "$OUTPUT"/"$name"Aligned.out.bam
     samtools index "$OUTPUT"/"$name"Aligned.sorted.out.bam
 
-done | tee $LOG_FOLDER/"$TIMESTAMP"_mapping.log
+done | tee $LOG_FOLDER/"$TIMESTAMP"_secondpass_mapping.log
+
 
 # STAR --runThreadN $NCPUS \
 #     --genomeDir 02_reference/STARindex/ \
