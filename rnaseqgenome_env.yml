@@ -1,0 +1,12 @@
+name: rnaseqgenome
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - python=3.7.*
+  - fastp=0.20.*
+  - star=2.7.*
+  - samtools=1.9.*
+  - picard=2.21.*
+  - stringtie=2.0.*
+

@@ -34,7 +34,7 @@ do
     
     echo -e "\nFirst Pass: Aligning $file"
 
-    STAR --runThreadN ${NCPUS} \
+#    STAR --runThreadN ${NCPUS} \
         --genomeDir 02_reference/STARindex/ \
         --readFilesIn ${INPUT}/${name}.fastq.gz \
         --readFilesCommand gunzip -c \

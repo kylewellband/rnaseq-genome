@@ -1,6 +1,7 @@
 *.gtf
 *.bai
 *.bam
+*.ctab
 *.fasta
 *.fastq
 *.gz
