@@ -34,7 +34,7 @@ do
     echo -e "\nFirst Pass: Aligning $file"
 
     STAR --runThreadN ${NCPUS} \
-        --genomeDir 02_reference/ \
+        --genomeDir 02_reference/STARindex/ \
         --readFilesIn ${INPUT}/${name}_R1.fastq.gz ${INPUT}/${name}_R2.fastq.gz \
         --readFilesCommand gunzip -c \
         --twopassMode None \
@@ -57,7 +57,7 @@ do
     echo -e "\nSecond Pass: Aligning $file"
 
     STAR --runThreadN ${NCPUS} \
-        --genomeDir 02_reference/ \
+        --genomeDir 02_reference/STARindex/ \
         --readFilesIn ${INPUT}/${name}_R1.fastq.gz ${INPUT}/${name}_R2.fastq.gz \
         --readFilesCommand gunzip -c \
         --twopassMode None \
