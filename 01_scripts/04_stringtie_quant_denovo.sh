@@ -27,7 +27,7 @@ do
     name=$(basename $file)
     
     echo "Running stringtie -eB for sample: ${name}"
-    mkdir ${OUTPUT}/"$name"
+    mkdir ${OUTPUT}/"$name"_denovo
 
     stringtie -p ${NCPUS} -G $GFF -eB "${file}"Aligned.sorted.out.bam -o ${OUTPUT}/"${name}"_denovo/"$name".gff
     
