@@ -27,10 +27,11 @@ do
     name=$(basename $file)
     
     echo "Running stringtie -eB for sample: ${name}"
-    stringtie -p ${NCPUS} -G $GFF -eB "${file}"Aligned.sorted.out.bam > ${OUTPUT}/"${name}".ctab
+    mkdir ${OUTPUT}/"$name"
+
+    stringtie -p ${NCPUS} -G $GFF -eB "${file}"Aligned.sorted.out.bam -o ${OUTPUT}/"${name}"/"$name"
     
 done
 
-ls ${OUTPUT}/*.ctab | awk -F "/" '{sub(/.ctab/, "", $2); print $2 "\t" $1 "/" $2 ".ctab"}' > ${OUTPUT}/stringtie_ctab_files.txt
 
 
