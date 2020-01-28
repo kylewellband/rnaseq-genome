@@ -29,7 +29,7 @@ do
     echo "Running stringtie -eB for sample: ${name}"
     mkdir ${OUTPUT}/"$name"
 
-    stringtie -p ${NCPUS} -G $GFF -eB "${file}"Aligned.sorted.out.bam -o ${OUTPUT}/"${name}"/"$name"
+    stringtie -p ${NCPUS} -G $GFF -eB "${file}"Aligned.sorted.out.bam -o ${OUTPUT}/"${name}"/"$name".gff
     
 done
 

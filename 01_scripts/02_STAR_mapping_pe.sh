@@ -34,7 +34,7 @@ do
     echo -e "\nFirst Pass: Aligning $file"
 
     STAR --runThreadN ${NCPUS} \
-        --genomeDir 02_reference/ \
+        --genomeDir 02_reference/STARindex/ \
         --readFilesIn ${INPUT}/${name}_R1.fastq.gz ${INPUT}/${name}_R2.fastq.gz \
         --readFilesCommand gunzip -c \
         --twopassMode None \
@@ -57,7 +57,7 @@ do
     echo -e "\nSecond Pass: Aligning $file"
 
     STAR --runThreadN ${NCPUS} \
-        --genomeDir 02_reference/ \
+        --genomeDir 02_reference/STARindex/ \
         --readFilesIn ${INPUT}/${name}_R1.fastq.gz ${INPUT}/${name}_R2.fastq.gz \
         --readFilesCommand gunzip -c \
         --twopassMode None \
@@ -68,7 +68,7 @@ do
         --outFilterMultimapNmax 20 \
         --quantMode TranscriptomeSAM GeneCounts \
         --outSAMattributes NH HI AS nM \
-        --outSAMattrRGline ID:${name} SN:${name} PL:ILLUMINA
+        --outSAMattrRGline ID:${name} SM:${name} PL:ILLUMINA
     
     samtools sort -@ $NCPUS "$OUTPUT"/"$name"Aligned.out.bam > "$OUTPUT"/"$name"Aligned.sorted.out.bam 
     rm "$OUTPUT"/"$name"Aligned.out.bam

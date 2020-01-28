@@ -68,7 +68,7 @@ do
         --outFilterMultimapNmax 20 \
         --quantMode TranscriptomeSAM GeneCounts \
         --outSAMattributes NH HI AS nM \
-        --outSAMattrRGline ID:${name} SN:${name} PL:ILLUMINA
+        --outSAMattrRGline ID:${name} SM:${name} PL:ILLUMINA
 
     samtools sort -@ $NCPUS "$OUTPUT"/"$name"Aligned.out.bam > "$OUTPUT"/"$name"Aligned.sorted.out.bam
     rm "$OUTPUT"/"$name"Aligned.out.bam

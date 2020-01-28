@@ -43,6 +43,6 @@ STAR --runMode genomeGenerate \
     --sjdbGTFtagExonParentTranscript Parent \
     --sjdbGTFfeatureExon exon \
     --genomeChrBinNbits ${BIT_SIZE} \
-    --genomeSAindexNbases 14
+    --genomeSAindexNbases 12
 
 
