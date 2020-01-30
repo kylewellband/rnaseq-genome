@@ -7,7 +7,7 @@ NCPUS=4
 grep "^>" $GENOME | cut -d " " -f 1 > 02_reference/decoys.txt
 sed -i.bak -e 's/>//g' 02_reference/decoys.txt
 
-if [ ! -e $GENOME || ! -e $TRANSCRIPTOME ];then
+if [[ ! -f $GENOME ]] || [[ ! -f $TRANSCRIPTOME ]]; then
     echo "Error: genome or transcriptome files not found!"
     exit
 fi
