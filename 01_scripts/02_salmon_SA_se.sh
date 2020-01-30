@@ -14,7 +14,7 @@ cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 # Global variables
 INDEX="02_reference/salmon_index"
 INPUT="04_trimmed_reads"
-OUTPUT="07_salmon_quants"
+OUTPUT="07_salmon_quant"
 NCPUS=4
 
 # Modules

@@ -14,7 +14,7 @@ cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 # Global variables
 INDEX="02_reference/salmon_index"
 INPUT="04_trimmed_reads"
-OUTPUT="07_salmon_quants"
+OUTPUT="07_salmon_quant"
 NCPUS=4
 
 # Modules
@@ -27,12 +27,13 @@ do
     
     echo -e "\nPseudo aligning $file"
 
-    salmon -i $INDEX \
+    salmon quant \
+        -i $INDEX \
         -l A \
         -1 $INPUT/"$name"_R1.fastq.gz \
         -2 $INPUT/"$name"_R2.fastq.gz \
         -p $NCPUS \
-        --validate-mappings \
+        --validateMappings \
 	--gcBias \
 	--seqBias \
 	-o $OUTPUT/"$name"_quant
