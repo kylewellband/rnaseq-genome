@@ -34,7 +34,7 @@ do
     
     echo -e "\nFirst Pass: Aligning $file"
 
-#    STAR --runThreadN ${NCPUS} \
+    STAR --runThreadN ${NCPUS} \
         --genomeDir 02_reference/STARindex/ \
         --readFilesIn ${INPUT}/${name}.fastq.gz \
         --readFilesCommand gunzip -c \
@@ -62,6 +62,7 @@ do
         --readFilesCommand gunzip -c \
         --twopassMode None \
         --sjdbFileChrStartEnd ${OUTPUT}/*SJ.out.tab \
+        --limitSjdbInsertNsj=2000000 \
         --outSAMmapqUnique 60 \
         --outFileNamePrefix ${OUTPUT}/${name} \
         --outSAMtype BAM Unsorted \

@@ -1,16 +1,12 @@
 #!/bin/bash
 
-RBASE="/home/kylewellband/R/x86_64-pc-linux-gnu-library/3.6/DEXSeq/python_scripts"
-NCPUS=1
-GFF="02_reference/genes.gff"
+RBASE="/Users/kyle/Library/R/3.5/library/DEXSeq/python_scripts"
+NCPUS=8
+GFF="02_reference/genes_DEXSeq.gff"
 INPUT="05_aligned_bam"
 OUTPUT="09_htseq-counts"
 
-ls -1 ${INPUT}/*.bam |
+ls -1 ${INPUT}/*.sorted.out.bam |
 perl -pe 's/(.*\/)(.*)(\.bam)/\2/' |
-parallel -j $NCPUS python ${RBASE}/dexseq_count.py \
--p no \
--s no \
--f bam \
--r pos $GFF ${INPUT}/{}.bam ${OUTPUT}/{}.txt
+parallel -j $NCPUS ~/miniconda3/bin/python ${RBASE}/dexseq_count.py -p no -s no -f bam -r pos $GFF ${INPUT}/{}.bam ${OUTPUT}/{}.txt
 
