@@ -24,7 +24,7 @@ Nsjs=$(cat 05_aligned_bam/*SJ.out.tab | cut -f1-3 | sort | uniq | wc -l)
 
 STAR --runMode genomeGenerate \
     --runThreadN ${NCPUS} \
-    --genomeDir "02_reference/STARindex/" \
+    --genomeDir "02_reference/STARindexSJ/" \
     --genomeFastaFiles ${GENOME} \
     --sjdbGTFfile ${GFF} \
     --sjdbGTFtagExonParentTranscript Parent \
