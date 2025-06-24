@@ -20,7 +20,7 @@ NCPUS=4
 echo "Building ${GENOME} index with SJs..."
 
 BIT_SIZE=$(python3 01_scripts/util/calcSTARGenomeBitSize.py ${GENOME})
-Nsjs=$(cat 05_aligned_bam/*SJ.out.tab | cut -f1-3 | sort | uniq | wc -l) 
+Nsjs=$(($(cat 05_aligned_bam/*SJ.out.tab | cut -f1-3 | sort | uniq | wc -l)+1000000)) 
 
 STAR --runMode genomeGenerate \
     --runThreadN ${NCPUS} \
